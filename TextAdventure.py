@@ -74,12 +74,13 @@ def actionsMainLab():
         help()
         actionsMainLab()
 ###
-    if action == 'look' and not inventory[0]:
+    if action == 'look':
+        if "apple" in inventory:
+            type("There is nothing to pick up\n")
+            actionsMainLab()
+        else:
             type("There is an apple on your desk.\n")
             type("\nWhat will you do now?\n")
-            actionsMainLab()
-    if action == 'look':
-            type("There is nothing to pick up\n")
             actionsMainLab()
 
 ###
@@ -95,15 +96,16 @@ def actionsMainLab():
         while item not in acceptableItems:
             type("You can't pick that up\n")
             actionsMainLab()
-        if item == 'apple' and not inventory:
-            inventory.append("apple")
-            type("You have taken the apple\n")
-            type("\nWhat will you do now?\n")
-            actionsMainLab()
-        elif item:
-            type("You already picked up the apple!\n")
-            type("\nWhat will you do now\n")
-            actionsMainLab()
+        if item == 'apple':
+            if "apple" in inventory:
+                type("You already picked up the apple!\n")
+                type("\nWhat will you do now\n")
+                actionsMainLab()
+            else:
+                inventory.append("apple")
+                type("You have taken the apple\n")
+                type("\nWhat will you do now?\n")
+                actionsMainLab()
 
     if action == 'use':
         type("Which item would you like to use?\n")
@@ -113,16 +115,26 @@ def actionsMainLab():
             type("You can't use this item\n")
             actionsMainLab()
 
-        if use == 'apple' and inventory:
-            inventory.remove("apple")
-            type("You have eaten the apple, you feel stronger!\n")
-            actionsMainLab()
-        elif use:
-            type("You don't have an apple! \n")
-            type("\nWhat would you like to do?\n")
-            actionsMainLab()
+        if use == 'apple':
+            if "apple" in inventory:
+                inventory.remove("apple")
+                type("You have eaten the apple, you feel stronger!\n")
+                actionsMainLab()
+            else:
+                type("You dont have an apple!\n")
+                type("\nWhat will you do now\n")
+                actionsMainLab()
 
-#####
+            if use == 'energy drink':
+                if "energy drink" in inventory:
+                    inventory.remove("energy drink")
+                    type("You drank the entirety of the bottle, you feel funny.\n")
+                    actionsMainLab()
+                else:
+                    type("You don't have an energy drink!\n")
+                    type("\nWhat will you do now\n")
+                    actionsMainLab()
+##############################
 def actionsMainCorridor():
 
     action = input ("> ")
@@ -152,13 +164,16 @@ def actionsMainCorridor():
         help()
         actionsMainCorridor()
 ###
-    if action == 'look' and not inventory['key']:
+    if action == 'look':
+        if "key" in inventory:
+            type("There is nothing else to pick up!\n")
+            type("\nWhat will you do now?\n")
+            actionsMainCorridor()
+        else:
             type("There is a key on the floor.\n")
             type("\nWhat will you do now?\n")
             actionsMainCorridor()
-    if action == 'look':
-            type("There is nothing to pick up\n")
-            actionsMainLab()
+
 ###
     if action == 'inventory':
         print(inventory)
@@ -171,30 +186,45 @@ def actionsMainCorridor():
         acceptableItems = ['key']
         while item not in acceptableItems:
             type("You can't pick that up\n")
-            actionsMainLab()
-        if item == 'key' and not inventory:
+            actionsMainCorridor()
+        if item == 'key':
             inventory.append("key")
             type("You have taken the key\n")
             type("\nWhat will you do now?\n")
-            actionsMainLab()
+            actionsMainCorridor()
         elif item:
             type("You already picked up the key!\n")
             type("\nWhat will you do now\n")
             actionsMainCorridor()
-    if use == 'key' and inventory:
-        type("You have opened the door to 'room 4'\n")
-        actionsMainLab()
-    elif use:
-        type("You don't have a key! \n")
-        type("\nWhat would you like to do?\n")
-        actionsMainLab()
 
+    if action == 'use':
+        type("Which item would you like to use?\n")
+        use = input("> ")
+        acceptableUses = ['apple', 'energy drink', 'key']
+        while use not in acceptableUses:
+            type("You can't use this item\n")
+            actionsMainCorridor()
+        if use == 'key':
+            if "key" in inventory:
+                type("You have openned the door to 'room4'!\n")
+                actionsMainCorridor()
+            else:
+                type("You don't have the key!\n")
+                type("\nWhat will you do now\n")
+                actionsMainCorridor()
+        elif use:
+            type("You don't have that item! \n")
+            type("\nWhat will you do now\n")
+            actionsMainCorridor()
 
+#######################
 def actionsDiningRoom():
+
     action = input ("> ")
     acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help']
     while action not in acceptableActions:
         print("You can't do that")
+        type("\nWhat will you do now?\n")
         action = input("> ")
 ###
     if action == 'quit':
@@ -208,49 +238,233 @@ def actionsDiningRoom():
             type("You cant go there.\n")
             direction = input("> ")
         if direction == 'north':
-            startRoom()
+            kitchen()
         elif direction == 'east':
             secondRoom()
         elif direction == 'south':
-            room4()
+            room()
     if action == 'help':
         help()
         actionsDiningRoom()
 ###
     if action == 'look':
-            type("There is a fork on the table, there is also an energy drink.\n")
+
+        if "fuse" in inventory:
+                type("There is an energy drink on the table.\n")
+                type("\nWhat will you do now?\n")
+                actionsDiningRoom()
+
+        if "energy drink" in inventory:
+            type("There is a fuse underneath the table.\n")
+            type("\nWhat will you do now?\n")
             actionsDiningRoom()
+
+        if "energy drink" and "fuse" in inventory:
+            type("There is nothing else to pick up!\n")
+            type("\nWhat will you do now?\n")
+            actionsDiningRoom()
+        else:
+            type("There is an energy drink on the table, there is a fuse underneath the table.\n")
+            type("\nWhat will you do now?\n")
+            actionsDiningRoom()
+
 ###
     if action == 'inventory':
         print(inventory)
+        type("\nWhat will you do now?\n")
         actionsDiningRoom()
 ###
-    if action.lower() == 'take':
-        type("What Would you like to take?\n")
+    if action == 'take':
+        type("What would you like to take?\n")
         item = input("> ")
-        acceptableItems = ['fork', 'energy drink']
+        acceptableItems = ['energy drink', 'fuse']
         while item not in acceptableItems:
             type("You can't pick that up\n")
             actionsDiningRoom()
-        if item == 'fork':
-            inventory.append("fork")
-            type("You have taken the fork\n")
-            actionsDiningRoom()
         if item == 'energy drink':
-            inventory.append("energy drink")
-            type("You have taken the energy drink\n")
+            if "energy drink" in inventory:
+                type("You already picked up the energy drink!\n")
+                type("\nWhat will you do now\n")
+                actionsDiningRoom()
+            else:
+                inventory.append("energy drink")
+                type("You have taken the energy drink\n")
+                type("\nWhat will you do now?\n")
+                actionsDiningRoom()
+        if item == 'fuse':
+            if "fuse" in inventory:
+                type("You already picked up the fuse!\n")
+                type("\nWhat will you do now?\n")
+                actionsDiningRoom()
+            else:
+                inventory.append("fuse")
+                type("You have taken the fuse\n")
+                type("\nWhat will you do now?\n")
+                actionsDiningRoom()
+
+    if action == 'use':
+        type("Which item would you like to use?\n")
+        use = input("> ")
+        acceptableUses = ['apple', 'energy drink']
+        while use not in acceptableUses:
+            type("You can't use this item\n")
             actionsDiningRoom()
 
+        if use == 'energy drink':
+            if "energy drink" in inventory:
+                inventory.remove("energy drink")
+                type("You drank the entirety of the bottle, you feel funny.\n")
+                actionsDiningRoom()
+            else:
+                type("You don't have an energy drink!\n")
+                type("\nWhat will you do now\n")
+                actionsDiningRoom()
+
+            if use == 'apple':
+                if "apple" in inventory:
+                    inventory.remove("apple")
+                    type("You have eaten the apple, you feel stronger!\n")
+                    actionsDiningRoom()
+                else:
+                    type("You dont have an apple!\n")
+                    type("\nWhat will you do now\n")
+                    actionsDiningRoom()
+
+def actionsKitchen():
+    action = input ("> ")
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help']
+    while action not in acceptableActions:
+        print("You can't do that")
+        type("\nWhat will you do now?\n")
+        action = input("> ")
+###
+    if action == 'quit':
+        sys.exit()
+###
+    if action == 'go':
+        type("Where would you like to go?\n")
+        direction = input("> ")
+        acceptableDirections = ['south']
+        while direction not in acceptableDirections:
+            type("You cant go there.\n")
+            direction = input("> ")
+
+        if direction == 'south':
+            diningRoom()
+
+    if action == 'help':
+        help()
+        actionsKitchen()
+###
+    if action == 'look':
+
+        if "lockpick" in inventory:
+                type("There is a knife you can take.\n")
+                type("\nWhat will you do now?\n")
+                actionsKitchen()
+
+        if "knife" in inventory:
+            type("There is a lockpick you can take.\n")
+            type("\nWhat will you do now?\n")
+            actionsKitchen()
+
+        if "lockpick" and "knife" in inventory:
+            type("There is nothing else to pick up!\n")
+            type("\nWhat will you do now?\n")
+            actionsKitchen()
+        else:
+            type("There is a lockpick and a knife that you can pick up.\n")
+            type("\nWhat will you do now?\n")
+            actionsKitchen()
+
+###
+    if action == 'inventory':
+        print(inventory)
+        type("\nWhat will you do now?\n")
+        actionsKitchen()
+###
+    if action == 'take':
+        type("What would you like to take?\n")
+        item = input("> ")
+        acceptableItems = ['knife', 'lockpick']
+        while item not in acceptableItems:
+            type("You can't pick that up\n")
+            actionsKitchen()
+        if item == 'lockpick':
+            if "lockpick" in inventory:
+                type("You already picked up the lockpick!\n")
+                type("\nWhat will you do now\n")
+                actionsKitchen()
+            else:
+                inventory.append("lockpick")
+                type("You have taken the lockpick.\n")
+                type("\nWhat will you do now?\n")
+                actionsKitchen()
+        if item == 'knife':
+            if "knife" in inventory:
+                type("You already picked up the knife!\n")
+                type("\nWhat will you do now?\n")
+                actionsKitchen()
+            else:
+                inventory.append("knife")
+                type("You have taken the knife, the head chef walks in to the kitchen, he sees you and asks,\n 'What are you doing with that knife?', how will you respond?\n")
+                type("You can...\n")
+                type("\n(s)tab him\n")
+                type("\nmake up an (e)xcuse\n")
+                type("\n(r)un away\n")
+                type("\n... by entering the letter in the brackets.\n")
+
+                RESPONSE = input("\n>")
+
+                if RESPONSE == 's':
+                    type("You stab the man in the stomach, he makes a loud and generic death sound, a person who was\n in the dining room saw what happened and has called the police, you get arrested\n your boss has fired you.\n")
+                    time.sleep(2)
+                    type("\nGAME OVER\n")
+                    sys.exit()
+                if RESPONSE == 'e':
+                    type("You say, 'John has asked me to bring him this knife because he needs to cut his loaf of bread.',\n the chef looks at you suspiciously and responds with, 'Thats fine, just remember to bring it back later.',\n the chef walks off.\n")
+                    type("\nWhat will you do now?\n")
+                    actionsKitchen()
+                if RESPONSE == 'r':
+                    type("You attempt to run away, the chef stabs you in the stomach, you make a loud and generic death sound and die.\n")
+                    time.sleep(2)
+                    type("\nGAME OVER\n")
+                    sys.exit()
+
+
+    if action == 'use':
+        type("Which item would you like to use?\n")
+        use = input("> ")
+        acceptableUses = ['apple', 'energy drink']
+        while use not in acceptableUses:
+            type("You can't use this item\n")
+            actionsKitchen()
+
+        if use == 'energy drink':
+            if "energy drink" in inventory:
+                inventory.remove("energy drink")
+                type("You drank the entirety of the bottle, you feel funny.\n")
+                actionsKitchen()
+            else:
+                type("You don't have an energy drink!\n")
+                type("\nWhat will you do now\n")
+                actionsKitchen()
+
+            if use == 'apple':
+                if "apple" in inventory:
+                    inventory.remove("apple")
+                    type("You have eaten the apple, you feel stronger!\n")
+                    actionsKitchen()
+                else:
+                    type("You dont have an apple!\n")
+                    type("\nWhat will you do now\n")
+                    actionsKitchen()
 
 def startRoom():
-
     type("You are in the main lab, this is the place you do all your work, the exit is just south of you, in the centre\n is the protoype of the bomb, some pieces are missing however. Type help to display controls.\n")
     actionsMainLab()
 
-
-
 def secondRoom():
-
     type("You enter a long and narrow hallway with two doors on either ends, which way will you go?\n")
     actionsMainCorridor()
 
@@ -260,6 +474,15 @@ def diningRoom():
 
 def room4():
     print("BYE")
+
+def kitchen():
+    type("You enter the kitchen, no one else is here, the only way to exit is the way you came in.\n")
+    actionsKitchen()
+
+def cleanersCloset():
+    type("You enter a small room that belongs to the cleaner, there are hoovers and lots of cleaning products inside.\n")
+    actionsCleanersCloset()
+
 def quit():
     if input('quit'):
         sys.exit()
