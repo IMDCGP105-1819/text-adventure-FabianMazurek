@@ -15,7 +15,20 @@ def type(word):
         sys.stdout.write(letter)
         sys.stdout.flush()
         time.sleep(0.01)
-
+def map():
+    print (' _________       _________         _________')
+    print ('|         |     |         |       |         |')
+    print ('| Kitchen |     |         |       |         |')
+    print ('|         |     | Main Lab|       |Archives |')
+    print ('|____ \___|     |         |       |         |')
+    print ('|         |     |         |       |         |')
+    print ('|         |_____|____ \___|_______|____\____|')
+    print ('| Dining  =    Main Corridor      = Room 4  |')
+    print ('|  Room   |_______________________|____\____|')
+    print ('|         |                       |         |')
+    print ('|____ \___|                       | Control |')
+    print ('|Cleaners |                       |  Room   |')
+    print ('|_________|                       |_________|')
 
 def displayIntro():
     type("The year is 1945, you are an American scientist working on the invetnion of the nuclear bomb.\n")
@@ -52,11 +65,33 @@ def help():
 def actionsMainLab():
     global inventory
     action = input ("> ")
-    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help']
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map', 'talk']
     while action not in acceptableActions:
         print("You can't do that")
         type("\nWhat will you do now?\n")
         action = input("> ")
+    if action == 'talk':
+        if "fuse" and "blueprints" and "plutonium" not in inventory:
+            type("John asks, 'Have you got he missing parts yet? no? well then what are you waiting for?'\n")
+            type("\nWhat will you do now?\n")
+            actionsMainLab()
+        if "fuse" and "blueprints" and "plutonium" in inventory:
+            type("John exclaims happily, 'Wow good job mate, now we can finish off the bomb,\n to thank you for your efforts I will give you this.',\n John hands you a copy of FIFA 12 for the PSP.")
+            type("You assist in finishing the project and watch the first\n successful tests of the atomic bomb in Alamogordo, New Mexico.\n ")
+            time.sleep(5)
+            type("\nYou completed the game!!!\n")
+            sys.exit()
+
+    if action == 'map':
+        if "map" not in inventory:
+            type("You don't have a map, yet.\n")
+            type("\nWhat will you do now?\n")
+            actionsMainLab()
+        else:
+            map()
+            type("\nWhat will you do now?\n")
+            actionsMainLab()
+
     if action == 'quit':
         sys.exit()
 ###
@@ -134,16 +169,26 @@ def actionsMainLab():
                     type("You don't have an energy drink!\n")
                     type("\nWhat will you do now\n")
                     actionsMainLab()
-##############################
+
 def actionsMainCorridor():
 
     action = input ("> ")
-    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help']
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map']
     while action not in acceptableActions:
         print("You can't do that")
         type("\nWhat will you do now?\n")
         action = input("> ")
 ###
+    if action == 'map':
+        if "map" not in inventory:
+            type("You don't have a map, yet.\n")
+            type("\nWhat will you do now?\n")
+            actionsMainCorridor()
+        else:
+            map()
+            type("\nWhat will you do now?\n")
+            actionsMainCorridor()
+
     if action == 'quit':
         sys.exit()
 ###
@@ -222,16 +267,25 @@ def actionsMainCorridor():
             type("\nWhat will you do now\n")
             actionsMainCorridor()
 
-#######################
 def actionsDiningRoom():
 
     action = input ("> ")
-    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help']
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map']
     while action not in acceptableActions:
         print("You can't do that")
         type("\nWhat will you do now?\n")
         action = input("> ")
 ###
+    if action == 'map':
+        if "map" not in inventory:
+            type("You don't have a map, yet.\n")
+            type("\nWhat will you do now?\n")
+            actionsDiningRoom()
+        else:
+            map()
+            type("\nWhat will you do now?\n")
+            actionsDiningRoom()
+
     if action == 'quit':
         sys.exit()
 ###
@@ -337,12 +391,22 @@ def actionsDiningRoom():
 
 def actionsKitchen():
     action = input ("> ")
-    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help']
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map']
     while action not in acceptableActions:
         print("You can't do that")
         type("\nWhat will you do now?\n")
         action = input("> ")
 ###
+    if action == 'map':
+        if "map" not in inventory:
+            type("You don't have a map, yet.\n")
+            type("\nWhat will you do now?\n")
+            actionsKitchen()
+        else:
+            map()
+            type("\nWhat will you do now?\n")
+            actionsKitchen()
+
     if action == 'quit':
         sys.exit()
 ###
@@ -435,6 +499,11 @@ def actionsKitchen():
                     time.sleep(2)
                     type("\nGAME OVER\n")
                     sys.exit()
+                else:
+                    type("That isn't a suitable answer.")
+                    inventory.remove("knife")
+                    type("\nWhat will you do now?\n")
+                    actionsKitchen()
 
 
     if action == 'use':
@@ -467,12 +536,22 @@ def actionsKitchen():
 
 def actionsCleanersCloset():
     action = input ("> ")
-    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help']
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map']
     while action not in acceptableActions:
         print("You can't do that")
         type("\nWhat will you do now?\n")
         action = input("> ")
 ###
+    if action == 'map':
+        if "map" not in inventory:
+            type("You don't have a map, yet.\n")
+            type("\nWhat will you do now?\n")
+            actionsCleanersCloset()
+        else:
+            map()
+            type("\nWhat will you do now?\n")
+            actionsCleanersCloset()
+
     if action == 'quit':
         sys.exit()
 ###
@@ -540,76 +619,69 @@ def actionsCleanersCloset():
                     sys.exit()
                     actionsCleanersCloset()
 
-            elif "hazmant suit" in inventory:
-                    type("You open the chest using the lockpick, the inside of the chest seems to have a thick layer of lead,\n inside there is a large, solid chunk of Plutonium.\n")
-                    type("\nDo you want to pick it up?\n")
+            if "hazmat suit" in inventory:
+                type("You open the chest using the lockpick, the inside of the chest seems to have a thick layer of lead,\n inside there is a large, solid chunk of Plutonium.\n")
+                type("\nDo you want to pick it up?\n")
 
-                    answer = input("\n> ")
+                answer1 = input("\n> ")
+                if answer1 == 'yes':
+                    inventory.append("plutonium")
+                    type("You pick up the Plutonium\n")
+                    type("\nWhat will you do now?\n")
+                    actionsCleanersCloset()
 
-            if "plutonium" in inventory:
-                type("You have already taken the plutonium!\n")
-                type("\nWhat will you do now?\n")
-                actionsCleanersCloset()
+                    if "plutonium" in inventory:
+                        type("You have already taken the plutonium!\n")
+                        type("\nWhat will you do now?\n")
+                        actionsCleanersCloset()
 
-            if answer == 'yes':
-                inventory.append("plutonium")
-                type("You pick up the Plutonium\n")
-                type("\nWhat will you do now?\n")
-                actionsCleanersCloset()
-            else:
-                type("You close the chest\n")
-                type("\nWhat will you do now?\n")
-                actionsCleanersCloset()
+                    else:
+                        type("You close the chest\n")
+                        type("\nWhat will you do now?\n")
+                        actionsCleanersCloset()
 
 def actionsRoom4():
     action = input ("> ")
-    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help']
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map']
     while action not in acceptableActions:
         print("You can't do that")
         type("\nWhat will you do now?\n")
         action = input("> ")
 ###
+    if action == 'map':
+        if "map" not in inventory:
+            type("You don't have a map, yet.\n")
+            type("\nWhat will you do now?\n")
+            actionsRoom4()
+        else:
+            map()
+            type("\nWhat will you do now?\n")
+            actionsRoom4()
+
     if action == 'quit':
         sys.exit()
 ###
     if action == 'go':
         type("Where would you like to go?\n")
         direction = input("> ")
-        acceptableDirections = ['north', 'east', 'south']
+        acceptableDirections = ['north', 'west', 'south']
         while direction not in acceptableDirections:
             type("You cant go there.\n")
             direction = input("> ")
         if direction == 'north':
-            kitchen()
-        elif direction == 'east':
+            archives()
+        elif direction == 'west':
             secondRoom()
         elif direction == 'south':
-            actionsRoom4()
+            controlRoom()
     if action == 'help':
         help()
         actionsRoom4()
 ###
     if action == 'look':
-
-        if "fuse" in inventory:
-                type("There is an energy drink on the table.\n")
-                type("\nWhat will you do now?\n")
-                actionsRoom4()
-
-        if "energy drink" in inventory:
-            type("There is a fuse underneath the table.\n")
-            type("\nWhat will you do now?\n")
-            actionsRoom4()
-
-        if "energy drink" and "fuse" in inventory:
-            type("There is nothing else to pick up!\n")
-            type("\nWhat will you do now?\n")
-            actionsRoom4()
-        else:
-            type("There is an energy drink on the table, there is a fuse underneath the table.\n")
-            type("\nWhat will you do now?\n")
-            actionsRoom4()
-
+        type("There is a map of the facility on the wall")
+        type("\nWhat will you do now?\n")
+        actionsRoom4()
 ###
     if action == 'inventory':
         print(inventory)
@@ -619,30 +691,21 @@ def actionsRoom4():
     if action == 'take':
         type("What would you like to take?\n")
         item = input("> ")
-        acceptableItems = ['energy drink', 'fuse']
+        acceptableItems = ['map']
         while item not in acceptableItems:
             type("You can't pick that up\n")
             actionsRoom4()
-        if item == 'energy drink':
-            if "energy drink" in inventory:
-                type("You already picked up the energy drink!\n")
+        if item == 'map':
+            if "map" in inventory:
+                type("You have already picked up the map\n")
                 type("\nWhat will you do now\n")
                 actionsRoom4()
             else:
-                inventory.append("energy drink")
-                type("You have taken the energy drink\n")
-                type("\nWhat will you do now?\n")
+                inventory.append("map")
+                type("You pick up the map, type 'map' to view it")
+                type("\nWhat will you do now\n")
                 actionsRoom4()
-        if item == 'fuse':
-            if "fuse" in inventory:
-                type("You already picked up the fuse!\n")
-                type("\nWhat will you do now?\n")
-                actionsRoom4()
-            else:
-                inventory.append("fuse")
-                type("You have taken the fuse\n")
-                type("\nWhat will you do now?\n")
-                actionsRoom4()
+
 
     if action == 'use':
         type("Which item would you like to use?\n")
@@ -662,18 +725,212 @@ def actionsRoom4():
                 type("\nWhat will you do now\n")
                 actionsRoom4()
 
+        if use == 'apple':
+            if "apple" in inventory:
+                inventory.remove("apple")
+                type("You have eaten the apple, you feel stronger!\n")
+                actionsRoom4()
+            else:
+                type("You dont have an apple!\n")
+                type("\nWhat will you do now\n")
+                actionsRoom4()
+
+def actionsControlRoom():
+        action = input ("> ")
+        acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map']
+        while action not in acceptableActions:
+            print("You can't do that")
+            type("\nWhat will you do now?\n")
+            action = input("> ")
+    ###
+        if action == 'map':
+            if "map" not in inventory:
+                type("You don't have a map, yet.\n")
+                type("\nWhat will you do now?\n")
+                actionsControlRoom()
+            else:
+                map()
+                type("\nWhat will you do now?\n")
+                actionsControlRoom()
+
+        if action == 'quit':
+            sys.exit()
+    ###
+        if action == 'go':
+            type("Where would you like to go?\n")
+            direction = input("> ")
+            acceptableDirections = ['north']
+            while direction not in acceptableDirections:
+                type("You cant go there.\n")
+                direction = input("> ")
+
+            if direction == 'north':
+                room4()
+
+        if action == 'help':
+            help()
+            actionsControlRoom()
+    ###
+        if action == 'look':
+            type("There is a hazmat suit attached to the wall using a rope, there is also a large red button in the centre of the control stack.\n")
+            type("\nWhat will you do now?\n")
+            actionsControlRoom()
+    ###
+        if action == 'inventory':
+            print(inventory)
+            type("\nWhat will you do now?\n")
+            actionsControlRoom()
+    ###
+        if action == 'take':
+            type("What would you like to take?\n")
+            item = input("> ")
+            acceptableItems = ['hazmat suit']
+            while item not in acceptableItems:
+                type("You can't pick that up\n")
+                actionsControlRoom()
+            if item == 'hazmat suit':
+                if "knife" not in inventory:
+                    type("The ropes are too thick and you can't take the hazmat suit off the wall.")
+                    type("\nWhat will you do now\n")
+                    actionsControlRoom()
+                if "knife" and "hazmat suit" in inventory:
+                        type("You have already picked up the hazmat suit!\n")
+                        type("\nWhat will you do now\n")
+                        actionsControlRoom()
+                else:
+                    inventory.append("hazmat suit")
+                    type("You use the knife to cut the ropes, you pick up the hazmat suit and put it on.\n")
+                    type("\nWhat will you do now\n")
+                    actionsControlRoom()
+
+
+        if action == 'use':
+            type("Which item would you like to use?\n")
+            use = input("> ")
+            acceptableUses = ['apple', 'energy drink', 'red button']
+            while use not in acceptableUses:
+                type("You can't use this item\n")
+                actionsControlRoom()
+
+            if use == 'energy drink':
+                if "energy drink" in inventory:
+                    inventory.remove("energy drink")
+                    type("You drank the entirety of the bottle, you feel funny.\n")
+                    actionsControlRoom()
+                else:
+                    type("You don't have an energy drink!\n")
+                    type("\nWhat will you do now\n")
+                    actionsControlRoom()
+
             if use == 'apple':
                 if "apple" in inventory:
                     inventory.remove("apple")
                     type("You have eaten the apple, you feel stronger!\n")
-                    actionsRoom4()
+                    actionsControlRoom()
                 else:
                     type("You dont have an apple!\n")
                     type("\nWhat will you do now\n")
-                    actionsRoom4()
+                    actionsControlRoom()
+            if use == 'red button':
+                type("You press the glowing red button very hard, you hear a deatheningly loud siren followed by the sound of\n rocket engines powering up, you just launched an experimental rocket that was no where near ready to be tested...\n the rocket blows up a few metres above the ground killing 3000 of your coworkers located in another part\n of the facility, you get fired.\n")
+                time.sleep(2)
+                type("\nGAME OVER\n")
+                sys.exit()
+
+def actionsArchives():
+    action = input ("> ")
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map']
+    while action not in acceptableActions:
+        print("You can't do that")
+        type("\nWhat will you do now?\n")
+        action = input("> ")
+###
+    if action == 'map':
+        if "map" not in inventory:
+            type("You don't have a map, yet.\n")
+            type("\nWhat will you do now?\n")
+            actionsArchives()
+        else:
+            map()
+            type("\nWhat will you do now?\n")
+            actionsArchives()
+
+    if action == 'quit':
+        sys.exit()
+###
+    if action == 'go':
+        type("Where would you like to go?\n")
+        direction = input("> ")
+        acceptableDirections = ['south']
+        while direction not in acceptableDirections:
+            type("You cant go there.\n")
+            direction = input("> ")
+        if direction == 'south':
+            room4()
+
+    if action == 'help':
+        help()
+        actionsArchives()
+###
+    if action == 'look':
+        type("You look around for a bit and then manage to find the bomb blueprints requested by John.\n")
+        type("\nWhat will you do now?\n")
+        actionsArchives()
+###
+    if action == 'inventory':
+        print(inventory)
+        type("\nWhat will you do now?\n")
+        actionsArchives()
+###
+    if action == 'take':
+        type("What would you like to take?\n")
+        item = input("> ")
+        acceptableItems = ['blueprints']
+        while item not in acceptableItems:
+            type("You can't pick that up\n")
+            actionsArchives()
+        if item == 'blueprints':
+            if "blueprints" in inventory:
+                type("You have already picked up the blutprints\n")
+                type("\nWhat will you do now\n")
+                actionsArchives()
+            else:
+                inventory.append("blueprints")
+                type("You have picked up the blueprints.")
+                type("\nWhat will you do now\n")
+                actionsArchives()
+
+
+    if action == 'use':
+        type("Which item would you like to use?\n")
+        use = input("> ")
+        acceptableUses = ['apple', 'energy drink']
+        while use not in acceptableUses:
+            type("You can't use this item\n")
+            actionsArchives()
+
+        if use == 'energy drink':
+            if "energy drink" in inventory:
+                inventory.remove("energy drink")
+                type("You drank the entirety of the bottle, you feel funny.\n")
+                actionsArchives()
+            else:
+                type("You don't have an energy drink!\n")
+                type("\nWhat will you do now\n")
+                actionsArchives()
+
+        if use == 'apple':
+            if "apple" in inventory:
+                inventory.remove("apple")
+                type("You have eaten the apple, you feel stronger!\n")
+                actionsArchives()
+            else:
+                type("You dont have an apple!\n")
+                type("\nWhat will you do now\n")
+                actionsArchives()
 
 def startRoom():
-    type("You are in the main lab, this is the place you do all your work, the exit is just south of you, in the centre\n is the protoype of the bomb, some pieces are missing however. Type help to display controls.\n")
+    type("You are in the main lab, this is the place you do all your work, the exit is just south of you, in the centre\n is the protoype of the bomb, some pieces are missing however. Type 'help' to display controls.\n")
     actionsMainLab()
 
 def secondRoom():
@@ -681,19 +938,28 @@ def secondRoom():
     actionsMainCorridor()
 
 def diningRoom():
-    type("You entered a large dining room with lots of long tables next to one another, there is a door to the north that leads\n to the kitchen, and a door to the south that is the cleaners' closet\n")
+    type("You enter a large dining room with lots of long tables next to one another, there is a door to the north that leads\n to the kitchen, and a door to the south that is the cleaners' closet\n")
     actionsDiningRoom()
 
 def room4():
-    print("You enter 'room 4', you have no idea what is in this room, that means you probably shouldn't know.\n")
+    type("You enter 'room 4', you have no idea what is in this room, that means you probably shouldn't know.\n The control room is to the south and the archives are to the north.\n")
     actionsRoom4()
+
 def kitchen():
     type("You enter the kitchen, no one else is here, the only way to exit is the way you came in.\n")
     actionsKitchen()
 
 def cleanersCloset():
-    type("You enter a small room that belongs to the cleaner, there are hoovers and lots of cleaning products inside.\n")
+    type("You enter a small room that belongs to the cleaner, there are hoovers and lots of cleaning products inside.\n The only way to exit is the way you came in.\n")
     actionsCleanersCloset()
+
+def controlRoom():
+    type("You enter a room filled with buttons and screens, there are cameras overlooking every part of the facility.\n The only way to exit is the way you came in.\n")
+    actionsControlRoom()
+
+def archives():
+    type("You enter the archives, there are thousonds if not millions of folders organised neatly in filing cabinets\n")
+    actionsArchives()
 
 def quit():
     if input('quit'):
