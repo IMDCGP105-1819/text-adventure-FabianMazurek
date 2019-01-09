@@ -101,6 +101,7 @@ def actionsMainLab():
         acceptableDirections = ['south']
         while direction not in acceptableDirections:
             type("You cant go there.\n")
+            actionsMainLab()
             direction = input("> ")
         if direction == 'south':
             secondRoom()
@@ -160,15 +161,15 @@ def actionsMainLab():
                 type("\nWhat will you do now\n")
                 actionsMainLab()
 
-            if use == 'energy drink':
-                if "energy drink" in inventory:
-                    inventory.remove("energy drink")
-                    type("You drank the entirety of the bottle, you feel funny.\n")
-                    actionsMainLab()
-                else:
-                    type("You don't have an energy drink!\n")
-                    type("\nWhat will you do now\n")
-                    actionsMainLab()
+        if use == 'energy drink':
+            if "energy drink" in inventory:
+                inventory.remove("energy drink")
+                type("You drank the entirety of the bottle, you feel funny.\n")
+                actionsMainLab()
+            else:
+                type("You don't have an energy drink!\n")
+                type("\nWhat will you do now\n")
+                actionsMainLab()
 
 def actionsMainCorridor():
 
@@ -198,6 +199,7 @@ def actionsMainCorridor():
         acceptableDirections = ['north', 'east', 'west']
         while direction not in acceptableDirections:
             type("You cant go there.\n")
+            actionsMainCorridor()
             direction = input("> ")
         if direction == 'north':
             startRoom()
@@ -262,6 +264,28 @@ def actionsMainCorridor():
                 type("You don't have the key!\n")
                 type("\nWhat will you do now\n")
                 actionsMainCorridor()
+
+        if use == 'apple':
+            if "apple" in inventory:
+                inventory.remove("apple")
+                type("You have eaten the apple, you feel stronger!\n")
+                actionsMainCorridor()
+            else:
+                type("You dont have an apple!\n")
+                type("\nWhat will you do now\n")
+                actionsMainCorridor()
+
+        if use == 'energy drink':
+            if "energy drink" in inventory:
+                inventory.remove("energy drink")
+                type("You drank the entirety of the bottle, you feel funny.\n")
+                actionsMainCorridor()
+                
+            else:
+                type("You don't have an energy drink!\n")
+                type("\nWhat will you do now\n")
+                actionsMainCorridor()
+
         elif use:
             type("You don't have that item! \n")
             type("\nWhat will you do now\n")
@@ -295,6 +319,7 @@ def actionsDiningRoom():
         acceptableDirections = ['north', 'east', 'south']
         while direction not in acceptableDirections:
             type("You cant go there.\n")
+            actionsDiningRoom()
             direction = input("> ")
         if direction == 'north':
             kitchen()
@@ -379,15 +404,15 @@ def actionsDiningRoom():
                 type("\nWhat will you do now\n")
                 actionsDiningRoom()
 
-            if use == 'apple':
-                if "apple" in inventory:
-                    inventory.remove("apple")
-                    type("You have eaten the apple, you feel stronger!\n")
-                    actionsDiningRoom()
-                else:
-                    type("You dont have an apple!\n")
-                    type("\nWhat will you do now\n")
-                    actionsDiningRoom()
+        if use == 'apple':
+            if "apple" in inventory:
+                inventory.remove("apple")
+                type("You have eaten the apple, you feel stronger!\n")
+                actionsDiningRoom()
+            else:
+                type("You dont have an apple!\n")
+                type("\nWhat will you do now\n")
+                actionsDiningRoom()
 
 def actionsKitchen():
     action = input ("> ")
@@ -416,8 +441,8 @@ def actionsKitchen():
         acceptableDirections = ['south']
         while direction not in acceptableDirections:
             type("You cant go there.\n")
+            actionsKitchen()
             direction = input("> ")
-
         if direction == 'south':
             diningRoom()
 
@@ -561,6 +586,7 @@ def actionsCleanersCloset():
         acceptableDirections = ['north']
         while direction not in acceptableDirections:
             type("You cant go there.\n")
+            actionsCleanersCloset()
             direction = input("> ")
         if direction == 'north':
             diningRoom()
@@ -667,6 +693,7 @@ def actionsRoom4():
         acceptableDirections = ['north', 'west', 'south']
         while direction not in acceptableDirections:
             type("You cant go there.\n")
+            actionsRoom4()
             direction = input("> ")
         if direction == 'north':
             archives()
@@ -762,8 +789,8 @@ def actionsControlRoom():
             acceptableDirections = ['north']
             while direction not in acceptableDirections:
                 type("You cant go there.\n")
+                actionsControlRoom()
                 direction = input("> ")
-
             if direction == 'north':
                 room4()
 
@@ -864,6 +891,7 @@ def actionsArchives():
         acceptableDirections = ['south']
         while direction not in acceptableDirections:
             type("You cant go there.\n")
+            actionsArchives()
             direction = input("> ")
         if direction == 'south':
             room4()
