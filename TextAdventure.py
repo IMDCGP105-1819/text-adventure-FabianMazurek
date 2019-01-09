@@ -47,7 +47,7 @@ inventory = []
 def choosePath():
     answer = input("\nWill you accept this 'quest' from John?\n")
     if str(answer) == "yes":
-        type("'Thanks for this, we are missing three things, the Plutonium core, the fuse and lastly the blueprints for the bomb,\n we lost these things somehow... if you succeed you will be rewarded greatly', John exclaimed\n")
+        type("'Thanks for this, we are missing three things, the Plutonium core, the fuse and the blueprints for the bomb,\n we lost these things somehow... if you succeed you will be rewarded greatly', John exclaimed\n")
         startRoom()
 
     else:
@@ -59,6 +59,7 @@ def help():
     type("You can check your inventory by typing 'inventory', type 'look' in order to see what items you can interact with\n in the current room.\n")
     type("\nYou can type 'take' to access the take item function\n")
     type("\nBy typing 'use' you can use the item\n")
+    type("\nBy typing talk, you can talk to John\n")
     type("\nLastly you can move by typing 'go' followed by north, east, south and west\n")
     type("\nWhat will you do now?\n")
 #######################################################################################################################
@@ -280,7 +281,7 @@ def actionsMainCorridor():
                 inventory.remove("energy drink")
                 type("You drank the entirety of the bottle, you feel funny.\n")
                 actionsMainCorridor()
-                
+
             else:
                 type("You don't have an energy drink!\n")
                 type("\nWhat will you do now\n")
@@ -334,9 +335,9 @@ def actionsDiningRoom():
     if action == 'look':
 
         if "fuse" in inventory:
-                type("There is an energy drink on the table.\n")
-                type("\nWhat will you do now?\n")
-                actionsDiningRoom()
+            type("There is an energy drink on the table.\n")
+            type("\nWhat will you do now?\n")
+            actionsDiningRoom()
 
         if "energy drink" in inventory:
             type("There is a fuse underneath the table.\n")
@@ -706,9 +707,14 @@ def actionsRoom4():
         actionsRoom4()
 ###
     if action == 'look':
-        type("There is a map of the facility on the wall")
-        type("\nWhat will you do now?\n")
-        actionsRoom4()
+        if "map" in inventory:
+            type("There is nothing else to pick up\n")
+            type("\nWhat will you do now?\n")
+            actionsRoom4()
+        else:
+            type("There is a map of the facility on the wall")
+            type("\nWhat will you do now?\n")
+            actionsRoom4()
 ###
     if action == 'inventory':
         print(inventory)
@@ -799,9 +805,14 @@ def actionsControlRoom():
             actionsControlRoom()
     ###
         if action == 'look':
-            type("There is a hazmat suit attached to the wall using a rope, there is also a large red button in the centre of the control stack.\n")
-            type("\nWhat will you do now?\n")
-            actionsControlRoom()
+            if "hazmat suit" in inventory:
+                type("There is nothing else to pick up\n")
+                type("\nWhat will you do now?\n")
+                actionsControlRoom()
+            else:
+                type("There is a hazmat suit attached to the wall using a rope, there is also a large red button in the centre of the control stack.\n")
+                type("\nWhat will you do now?\n")
+                actionsControlRoom()
     ###
         if action == 'inventory':
             print(inventory)
@@ -901,9 +912,14 @@ def actionsArchives():
         actionsArchives()
 ###
     if action == 'look':
-        type("You look around for a bit and then manage to find the bomb blueprints requested by John.\n")
-        type("\nWhat will you do now?\n")
-        actionsArchives()
+        if "blueprints" in inventory:
+            type("There is nothing else to pick up\n")
+            type("\nWhat will you do now?\n")
+            actionsArchives()
+        else:
+            type("You look around for a bit and then manage to find the bomb blueprints requested by John.\n")
+            type("\nWhat will you do now?\n")
+            actionsArchives()
 ###
     if action == 'inventory':
         print(inventory)
@@ -986,7 +1002,7 @@ def controlRoom():
     actionsControlRoom()
 
 def archives():
-    type("You enter the archives, there are thousonds if not millions of folders organised neatly in filing cabinets\n")
+    type("You enter the archives, there are thousands if not millions of folders organised neatly in filing cabinets\n")
     actionsArchives()
 
 def quit():
