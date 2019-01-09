@@ -4,13 +4,11 @@ import threading
 import sys
 
 
-class player:
-    def __init__(self):
-        self.location = 'start'
-myPlayer = player()
+
+
 
 ###MAP###
-def type(word):
+def type(word):         ###this neat function allows for each letter to be printed one by one adding the effect of typing, it looks better than just printing imo.
     for letter in word:
         sys.stdout.write(letter)
         sys.stdout.flush()
@@ -20,7 +18,7 @@ def map():
     print ('|         |     |         |       |         |')
     print ('| Kitchen |     |         |       |         |')
     print ('|         |     | Main Lab|       |Archives |')
-    print ('|____ \___|     |         |       |         |')
+    print ('|____ \___|     |         |       |         |')  ####this is the map of my game, when the def map() function is called it prints the map.
     print ('|         |     |         |       |         |')
     print ('|         |_____|____ \___|_______|____\____|')
     print ('| Dining  =    Main Corridor      = Room 4  |')
@@ -30,7 +28,7 @@ def map():
     print ('|Cleaners |                       |  Room   |')
     print ('|_________|                       |_________|')
 
-def displayIntro():
+def displayIntro(): #This function is called at the start and sets the scene.
     type("The year is 1945, you are an American scientist working on the invetnion of the nuclear bomb.\n")
 
     type("You and your team are close to figuring it all out, however...\n")
@@ -44,7 +42,7 @@ def displayIntro():
 global inventory
 inventory = []
 
-def choosePath():
+def choosePath():   #This function allows the player to chose whether they actually want to play
     answer = input("\nWill you accept this 'quest' from John?\n")
     if str(answer) == "yes":
         type("'Thanks for this, we are missing three things, the Plutonium core, the fuse and the blueprints for the bomb,\n we lost these things somehow... if you succeed you will be rewarded greatly', John exclaimed\n")
@@ -55,7 +53,7 @@ def choosePath():
         time.sleep(1)
         type("GAME OVER")
 
-def help():
+def help():  #prints all the commands whenever 'help' is called, quite helpful.
     type("You can check your inventory by typing 'inventory', type 'look' in order to see what items you can interact with\n in the current room.\n")
     type("\nYou can type 'take' to access the take item function\n")
     type("\nBy typing 'use' you can use the item\n")
@@ -64,14 +62,14 @@ def help():
     type("\nWhat will you do now?\n")
 #######################################################################################################################
 def actionsMainLab():
-    global inventory
-    action = input ("> ")
-    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map', 'talk']
+    global inventory   ##inventory is made global at the start.
+    action = input ("> ")    ##sets the variable actions to anythin the player inputs
+    acceptableActions = ['go', 'use', 'look', 'inventory', 'take', 'quit', 'help', 'map', 'talk'] ##If the player inputs any of these, something happens, else "you cant do that" is printed.
     while action not in acceptableActions:
         print("You can't do that")
         type("\nWhat will you do now?\n")
         action = input("> ")
-    if action == 'talk':
+    if action == 'talk':  ##this is how one completes the game, if all three items are in the players inventory then the final sequence of events plays.
         if "fuse" and "blueprints" and "plutonium" not in inventory:
             type("John asks, 'Have you got he missing parts yet? no? well then what are you waiting for?'\n")
             type("\nWhat will you do now?\n")
@@ -84,7 +82,7 @@ def actionsMainLab():
             sys.exit()
 
     if action == 'map':
-        if "map" not in inventory:
+        if "map" not in inventory:  #if the player doesnt have the map, nothing happens else the map is printed.
             type("You don't have a map, yet.\n")
             type("\nWhat will you do now?\n")
             actionsMainLab()
@@ -94,9 +92,9 @@ def actionsMainLab():
             actionsMainLab()
 
     if action == 'quit':
-        sys.exit()
+        sys.exit()  ##quits the game
 ###
-    if action == 'go':
+    if action == 'go': ###allows the player to move between areas.
         type("Where would you like to go?\n")
         direction = input("> ")
         acceptableDirections = ['south']
@@ -114,6 +112,7 @@ def actionsMainLab():
     if action == 'look':
         if "apple" in inventory:
             type("There is nothing to pick up\n")
+            type("\nWhat will you do now?\n")
             actionsMainLab()
         else:
             type("There is an apple on your desk.\n")
@@ -122,19 +121,19 @@ def actionsMainLab():
 
 ###
     if action == 'inventory':
-        print(inventory)
+        print("You have the following in your inventory: " + inventory)       ##prints all items that are currently in the player's inventory
         type("\nWhat will you do now?\n")
         actionsMainLab()
 ###
     if action == 'take':
         type("What would you like to take?\n")
         item = input("> ")
-        acceptableItems = ['apple']
+        acceptableItems = ['apple'] ##these are the items the player can interact with in the scene.
         while item not in acceptableItems:
             type("You can't pick that up\n")
             actionsMainLab()
         if item == 'apple':
-            if "apple" in inventory:
+            if "apple" in inventory: #if the player has the apple in their inventory then they cant pick up another one.
                 type("You already picked up the apple!\n")
                 type("\nWhat will you do now\n")
                 actionsMainLab()
@@ -147,7 +146,7 @@ def actionsMainLab():
     if action == 'use':
         type("Which item would you like to use?\n")
         use = input("> ")
-        acceptableUses = ['apple', 'energy drink']
+        acceptableUses = ['apple', 'energy drink']  ## these are the things that can be used in this specific scene.
         while use not in acceptableUses:
             type("You can't use this item\n")
             actionsMainLab()
@@ -170,7 +169,7 @@ def actionsMainLab():
             else:
                 type("You don't have an energy drink!\n")
                 type("\nWhat will you do now\n")
-                actionsMainLab()
+                actionsMainLab()              #all of the actions'enterroomname' do almost the same thing, that being they allow the player to use, take, look, move etc.
 
 def actionsMainCorridor():
 
@@ -973,41 +972,41 @@ def actionsArchives():
                 type("\nWhat will you do now\n")
                 actionsArchives()
 
-def startRoom():
+def startRoom(): ##when 'roomname' is called it takes the player there and allows them to do only the actions specified in 'actionsRoomName'.
     type("You are in the main lab, this is the place you do all your work, the exit is just south of you, in the centre\n is the protoype of the bomb, some pieces are missing however. Type 'help' to display controls.\n")
     actionsMainLab()
 
-def secondRoom():
+def secondRoom():##when 'roomname' is called it takes the player there and allows them to do only the actions specified in 'actionsRoomName'.
     type("You enter a long and narrow hallway with two doors on either ends, which way will you go?\n")
     actionsMainCorridor()
 
-def diningRoom():
+def diningRoom():##when 'roomname' is called it takes the player there and allows them to do only the actions specified in 'actionsRoomName'.
     type("You enter a large dining room with lots of long tables next to one another, there is a door to the north that leads\n to the kitchen, and a door to the south that is the cleaners' closet\n")
     actionsDiningRoom()
 
-def room4():
+def room4():##when 'roomname' is called it takes the player there and allows them to do only the actions specified in 'actionsRoomName'.
     type("You enter 'room 4', you have no idea what is in this room, that means you probably shouldn't know.\n The control room is to the south and the archives are to the north.\n")
     actionsRoom4()
 
-def kitchen():
+def kitchen():##when 'roomname' is called it takes the player there and allows them to do only the actions specified in 'actionsRoomName'.
     type("You enter the kitchen, no one else is here, the only way to exit is the way you came in.\n")
     actionsKitchen()
 
-def cleanersCloset():
+def cleanersCloset():##when 'roomname' is called it takes the player there and allows them to do only the actions specified in 'actionsRoomName'.
     type("You enter a small room that belongs to the cleaner, there are hoovers and lots of cleaning products inside.\n The only way to exit is the way you came in.\n")
     actionsCleanersCloset()
 
-def controlRoom():
+def controlRoom():##when 'roomname' is called it takes the player there and allows them to do only the actions specified in 'actionsRoomName'.
     type("You enter a room filled with buttons and screens, there are cameras overlooking every part of the facility.\n The only way to exit is the way you came in.\n")
     actionsControlRoom()
 
-def archives():
+def archives():##when 'roomname' is called it takes the player there and allows them to do only the actions specified in 'actionsRoomName'.
     type("You enter the archives, there are thousands if not millions of folders organised neatly in filing cabinets\n")
     actionsArchives()
 
-def quit():
+def quit(): ##when called it quits the game
     if input('quit'):
         sys.exit()
 
-displayIntro()
-choosePath()
+displayIntro() #this displays the intro
+choosePath() #this displays the 'main menu'

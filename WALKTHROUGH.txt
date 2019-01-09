@@ -1,0 +1,55 @@
+WALKTHROUGH
+####
+yes
+####
+go south
+####
+take key
+####
+go west
+####
+take fuse
+####
+go north
+####
+take knife and lockpick
+####
+answer 'e' to the chef
+####
+go south
+####
+go east
+####
+use key
+####
+go east
+####
+go south
+####
+take hazmat suit
+####
+go north
+####
+go north
+####
+take blueprints
+####
+go south
+####
+go west
+####
+go west
+####
+go south
+####
+use lockpick
+####
+take plutonium
+####
+go north
+####
+go east
+####
+go north
+####
+talk to john
