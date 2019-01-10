@@ -511,19 +511,17 @@ def actionsKitchen():
                 RESPONSE = input("\n>")
 
                 if RESPONSE == 's':
-                    type("You stab the man in the stomach, he makes a loud and generic death sound, a person who was\n in the dining room saw what happened and has called the police, you get arrested\n your boss has fired you.\n")
-                    time.sleep(2)
-                    type("\nGAME OVER\n")
-                    sys.exit()
+                    type("You stab the man in the stomach, he makes a loud and generic death sound, luckily no one heard or saw what had happened, you hide the body.\n")
+                    type("\nWhat will you do now?\n")
+                    actionsKitchen()
                 if RESPONSE == 'e':
                     type("You say, 'John has asked me to bring him this knife because he needs to cut his loaf of bread.',\n the chef looks at you suspiciously and responds with, 'Thats fine, just remember to bring it back later.',\n the chef walks off.\n")
                     type("\nWhat will you do now?\n")
                     actionsKitchen()
                 if RESPONSE == 'r':
-                    type("You attempt to run away, the chef stabs you in the stomach, you make a loud and generic death sound and die.\n")
-                    time.sleep(2)
-                    type("\nGAME OVER\n")
-                    sys.exit()
+                    type("You manage to run past the chef and get away, he just shrugs and continues with his day.\n")
+                    type("\nWhat will you do now?\n")
+                    actionsKitchen()
                 else:
                     type("That isn't a suitable answer.")
                     inventory.remove("knife")
@@ -598,6 +596,8 @@ def actionsCleanersCloset():
     if action == 'look':
         if 'plutonium' in inventory:
             type("The chest from which you took the plutonium is still open and empty.\n")
+            type("\nWhat will you do now?\n")
+            actionsCleanersCloset()
         else:
             type("There is a locked chest on the shelf, amongst all the cleaning products.\n")
             type("\nWhat will you do now?\n")
@@ -628,43 +628,32 @@ def actionsCleanersCloset():
                 type("\nWhat will you do now?\n")
                 actionsCleanersCloset()
             elif "hazmat suit" not in inventory:
-                type("You open the chest using the lockpick, the inside of the chest seems to have a thick layer of lead,\n inside there is a large, solid chunk of Plutonium.\n")
-                type("\nDo you want to pick it up?\n")
-
-                answer = input("\n> ")
-
-                if answer == 'yes':
-                    type("You pick up the Plutonium with your bare hands, you die real quick.\n")
-                    time.sleep(2)
-                    type("\nGAME OVER\n")
-                    sys.exit()
-                else:
-                    type("You decide to close the chest in fear of the radiation, you realise it may be too late for you however.\n you die a couple of days later in hospital.\n")
-                    time.sleep(2)
-                    type("\nGAME OVER\n")
-                    sys.exit()
-                    actionsCleanersCloset()
+                type("Maybe it isn't a good idea to open this chest... the cleaner might have taken the plutonium\n in an attempt to sabotage the project... maybe there is a hazmat suit somwhere?\n")
+                type("\nWhat will you do now?\n")
+                actionsCleanersCloset()
 
             if "hazmat suit" in inventory:
                 type("You open the chest using the lockpick, the inside of the chest seems to have a thick layer of lead,\n inside there is a large, solid chunk of Plutonium.\n")
                 type("\nDo you want to pick it up?\n")
 
                 answer1 = input("\n> ")
-                if answer1 == 'yes':
-                    inventory.append("plutonium")
-                    type("You pick up the Plutonium\n")
-                    type("\nWhat will you do now?\n")
-                    actionsCleanersCloset()
 
+                if answer1 == 'yes':
                     if "plutonium" in inventory:
                         type("You have already taken the plutonium!\n")
                         type("\nWhat will you do now?\n")
                         actionsCleanersCloset()
-
                     else:
-                        type("You close the chest\n")
+                        inventory.append("plutonium")
+                        type("You pick up the Plutonium\n")
                         type("\nWhat will you do now?\n")
                         actionsCleanersCloset()
+
+
+                else:
+                    type("You close the chest\n")
+                    type("\nWhat will you do now?\n")
+                    actionsCleanersCloset()
 
 def actionsRoom4():
     action = input ("> ")
@@ -809,7 +798,7 @@ def actionsControlRoom():
                 type("\nWhat will you do now?\n")
                 actionsControlRoom()
             else:
-                type("There is a hazmat suit attached to the wall using a rope, there is also a large red button in the centre of the control stack.\n")
+                type("There is a hazmat suit attached to the wall using a rope.\n")
                 type("\nWhat will you do now?\n")
                 actionsControlRoom()
     ###
@@ -844,7 +833,7 @@ def actionsControlRoom():
         if action == 'use':
             type("Which item would you like to use?\n")
             use = input("> ")
-            acceptableUses = ['apple', 'energy drink', 'red button']
+            acceptableUses = ['apple', 'energy drink']
             while use not in acceptableUses:
                 type("You can't use this item\n")
                 actionsControlRoom()
@@ -868,11 +857,6 @@ def actionsControlRoom():
                     type("You dont have an apple!\n")
                     type("\nWhat will you do now\n")
                     actionsControlRoom()
-            if use == 'red button':
-                type("You press the glowing red button very hard, you hear a deatheningly loud siren followed by the sound of\n rocket engines powering up, you just launched an experimental rocket that was no where near ready to be tested...\n the rocket blows up a few metres above the ground killing 3000 of your coworkers located in another part\n of the facility, you get fired.\n")
-                time.sleep(2)
-                type("\nGAME OVER\n")
-                sys.exit()
 
 def actionsArchives():
     action = input ("> ")
